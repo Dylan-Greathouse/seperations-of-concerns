@@ -1,8 +1,9 @@
 const pool = require('../lib/utils/pool');
-const twilio = require('twilio');
+// const twilio = require('twilio');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
+const Order = require('../lib/models/Order');
 
 jest.mock('twilio', () => () => ({
   messages: {
@@ -43,23 +44,23 @@ describe('03_separation-of-concerns-demo routes', () => {
     return request(app)
       .get('/api/v1/orders/1')
       .then(res => {
-        // expect(createMessage).toHaveBeenCalledTimes(1);
-        expect(res.body).toEqual([{
+        expect(res.body).toEqual({
           id: '1',
           quantity: 10
-        }]);
+        });
       });
   });
 
-  it.skip('should PATCH an order by id', () => {
+  it('should PATCH an order by id',  () => {
+    // const order = await Order.insert({ quantity: 10 });
     return request(app)
-      .patch('/api/v1/orders')
-      .send({ quantity: 10 })
+      .patch('/api/v1/orders/1')
+      .send({ quantity: 20 })
       .then(res => {
         // expect(createMessage).toHaveBeenCalledTimes(1);
         expect(res.body).toEqual({
           id: '1',
-          quantity: 10
+          quantity: 20
         });
       });
   });
