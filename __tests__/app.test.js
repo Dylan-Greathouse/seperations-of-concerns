@@ -65,16 +65,12 @@ describe('03_separation-of-concerns-demo routes', () => {
       });
   });
 
-  it.skip('should DELETE an order by id', () => {
+  it('should DELETE an order by id', () => {
     return request(app)
-      .delete('/api/v1/orders')
-      .send({ quantity: 10 })
+      .delete('/api/v1/orders/1')
       .then(res => {
         // expect(createMessage).toHaveBeenCalledTimes(1);
-        expect(res.body).toEqual({
-          id: '1',
-          quantity: 10
-        });
+        expect(res.body).toEqual({});
       });
   });
 });
